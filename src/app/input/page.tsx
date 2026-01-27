@@ -9,7 +9,13 @@ import AdBanner from '@/components/AdBanner';
 
 export default function InputPage() {
   const router = useRouter();
-  const { t } = useLanguage();
+  const { t, locale } = useLanguage();
+
+  // Generate options for dropdowns
+  const currentYear = new Date().getFullYear();
+  const years = Array.from({ length: currentYear - 1900 + 1 }, (_, i) => currentYear - i);
+  const months = Array.from({ length: 12 }, (_, i) => i + 1);
+  const days = Array.from({ length: 31 }, (_, i) => i + 1);
   const [selectedCategory, setSelectedCategory] = useState<FortuneCategory | null>(null);
   const [formData, setFormData] = useState<Omit<FortuneInput, 'selectedCategory'>>({
     name: '',
@@ -141,39 +147,75 @@ export default function InputPage() {
           <div className="mb-4">
             <label className="block text-sm text-gray-300 mb-2">{t.dateOfBirth}</label>
             <div className="grid grid-cols-3 gap-3">
-              <div className="relative">
-                <input
-                  type="number"
-                  placeholder="DD"
-                  min="1"
-                  max="31"
-                  value={formData.birthDay || ''}
-                  onChange={(e) => handleInputChange('birthDay', parseInt(e.target.value) || 0)}
-                  className="w-full px-4 py-4 bg-background-input rounded-xl border border-gray-700/50 text-white placeholder-gray-500 focus:border-indigo-500 transition-colors text-center"
-                />
-              </div>
-              <div className="relative">
-                <input
-                  type="number"
-                  placeholder="MM"
-                  min="1"
-                  max="12"
-                  value={formData.birthMonth || ''}
-                  onChange={(e) => handleInputChange('birthMonth', parseInt(e.target.value) || 0)}
-                  className="w-full px-4 py-4 bg-background-input rounded-xl border border-gray-700/50 text-white placeholder-gray-500 focus:border-indigo-500 transition-colors text-center"
-                />
-              </div>
-              <div className="relative">
-                <input
-                  type="number"
-                  placeholder="YYYY"
-                  min="1900"
-                  max={new Date().getFullYear()}
-                  value={formData.birthYear || ''}
-                  onChange={(e) => handleInputChange('birthYear', parseInt(e.target.value) || 0)}
-                  className="w-full px-4 py-4 bg-background-input rounded-xl border border-gray-700/50 text-white placeholder-gray-500 focus:border-indigo-500 transition-colors text-center"
-                />
-              </div>
+              {locale === 'ko' ? (
+                <>
+                  {/* Korean: Year / Month / Day */}
+                  <select
+                    value={formData.birthYear || ''}
+                    onChange={(e) => handleInputChange('birthYear', parseInt(e.target.value) || 0)}
+                    className="w-full px-3 py-4 bg-background-input rounded-xl border border-gray-700/50 text-white focus:border-indigo-500 transition-colors text-center appearance-none cursor-pointer"
+                  >
+                    <option value="" className="bg-gray-900 text-gray-500">년</option>
+                    {years.map((year) => (
+                      <option key={year} value={year} className="bg-gray-900">{year}</option>
+                    ))}
+                  </select>
+                  <select
+                    value={formData.birthMonth || ''}
+                    onChange={(e) => handleInputChange('birthMonth', parseInt(e.target.value) || 0)}
+                    className="w-full px-3 py-4 bg-background-input rounded-xl border border-gray-700/50 text-white focus:border-indigo-500 transition-colors text-center appearance-none cursor-pointer"
+                  >
+                    <option value="" className="bg-gray-900 text-gray-500">월</option>
+                    {months.map((month) => (
+                      <option key={month} value={month} className="bg-gray-900">{month}</option>
+                    ))}
+                  </select>
+                  <select
+                    value={formData.birthDay || ''}
+                    onChange={(e) => handleInputChange('birthDay', parseInt(e.target.value) || 0)}
+                    className="w-full px-3 py-4 bg-background-input rounded-xl border border-gray-700/50 text-white focus:border-indigo-500 transition-colors text-center appearance-none cursor-pointer"
+                  >
+                    <option value="" className="bg-gray-900 text-gray-500">일</option>
+                    {days.map((day) => (
+                      <option key={day} value={day} className="bg-gray-900">{day}</option>
+                    ))}
+                  </select>
+                </>
+              ) : (
+                <>
+                  {/* English: Day / Month / Year */}
+                  <select
+                    value={formData.birthDay || ''}
+                    onChange={(e) => handleInputChange('birthDay', parseInt(e.target.value) || 0)}
+                    className="w-full px-3 py-4 bg-background-input rounded-xl border border-gray-700/50 text-white focus:border-indigo-500 transition-colors text-center appearance-none cursor-pointer"
+                  >
+                    <option value="" className="bg-gray-900 text-gray-500">Day</option>
+                    {days.map((day) => (
+                      <option key={day} value={day} className="bg-gray-900">{day}</option>
+                    ))}
+                  </select>
+                  <select
+                    value={formData.birthMonth || ''}
+                    onChange={(e) => handleInputChange('birthMonth', parseInt(e.target.value) || 0)}
+                    className="w-full px-3 py-4 bg-background-input rounded-xl border border-gray-700/50 text-white focus:border-indigo-500 transition-colors text-center appearance-none cursor-pointer"
+                  >
+                    <option value="" className="bg-gray-900 text-gray-500">Month</option>
+                    {months.map((month) => (
+                      <option key={month} value={month} className="bg-gray-900">{month}</option>
+                    ))}
+                  </select>
+                  <select
+                    value={formData.birthYear || ''}
+                    onChange={(e) => handleInputChange('birthYear', parseInt(e.target.value) || 0)}
+                    className="w-full px-3 py-4 bg-background-input rounded-xl border border-gray-700/50 text-white focus:border-indigo-500 transition-colors text-center appearance-none cursor-pointer"
+                  >
+                    <option value="" className="bg-gray-900 text-gray-500">Year</option>
+                    {years.map((year) => (
+                      <option key={year} value={year} className="bg-gray-900">{year}</option>
+                    ))}
+                  </select>
+                </>
+              )}
             </div>
             {(errors.birthDay || errors.birthMonth || errors.birthYear) && (
               <p className="text-red-400 text-xs mt-1">{t.validDateRequired}</p>
