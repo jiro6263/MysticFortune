@@ -43,7 +43,7 @@ export default function HomePage() {
     <div className="min-h-screen px-4 py-6 pb-24">
       {/* Ad Banner Section */}
       <div className="w-full max-w-md mx-auto mb-4">
-        <AdBanner slot="XXXXXXXXXX" />
+        <AdBanner slot="4970447883" />
       </div>
 
       {/* Language Selector */}

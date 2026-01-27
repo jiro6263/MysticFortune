@@ -111,7 +111,7 @@ export default function ResultPage() {
     <div className="min-h-screen px-4 py-6 pb-32">
       {/* Ad Banner Section */}
       <div className="w-full max-w-md mx-auto mb-4">
-        <AdBanner slot="XXXXXXXXXX" />
+        <AdBanner slot="4970447883" />
       </div>
 
       {/* Back Button */}
