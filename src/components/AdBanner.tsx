@@ -39,11 +39,9 @@ export default function AdBanner({
   return (
     <ins
       className="adsbygoogle"
-      style={{ display: 'block', minHeight: '50px' }}
+      style={{ display: 'inline-block', width: '100%', maxWidth: '728px', height: '90px' }}
       data-ad-client="ca-pub-8269395390841538"
       data-ad-slot={slot}
-      data-ad-format={format}
-      data-full-width-responsive={responsive}
     />
   );
 }
