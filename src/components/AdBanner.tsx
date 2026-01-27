@@ -16,7 +16,7 @@ declare global {
 
 export default function AdBanner({
   slot,
-  format = 'auto',
+  format = 'horizontal',
   responsive = true
 }: AdBannerProps) {
   useEffect(() => {
