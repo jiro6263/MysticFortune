@@ -191,6 +191,11 @@ export default function ResultPage() {
         </div>
       </div>
 
+      {/* Square Ad Banner */}
+      <div className="max-w-md mx-auto mt-8 flex justify-center">
+        <AdBanner slot="2368335270" format="square" />
+      </div>
+
       {/* Bottom Navigation */}
       <div className="fixed bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-background via-background to-transparent">
         <div className="max-w-md mx-auto flex gap-3">

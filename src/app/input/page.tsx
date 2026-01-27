@@ -331,6 +331,11 @@ export default function InputPage() {
         <p className="text-center text-xs text-gray-500 mt-6">
           {t.footer}
         </p>
+
+        {/* Square Ad Banner */}
+        <div className="w-full mt-6 flex justify-center">
+          <AdBanner slot="2368335270" format="square" />
+        </div>
       </div>
     </div>
   );

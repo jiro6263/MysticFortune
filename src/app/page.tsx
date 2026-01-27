@@ -91,6 +91,11 @@ export default function HomePage() {
       <p className="text-center text-xs text-gray-500 mt-8">
         {t.footer}
       </p>
+
+      {/* Square Ad Banner */}
+      <div className="w-full max-w-md mx-auto mt-8 flex justify-center">
+        <AdBanner slot="2368335270" format="square" />
+      </div>
     </div>
   );
 }
