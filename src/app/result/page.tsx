@@ -220,7 +220,7 @@ export default function ResultPage() {
             {/* Grade */}
             <div style={{
               textAlign: 'center',
-              marginBottom: '20px',
+              marginBottom: '16px',
               padding: '16px',
               borderRadius: '12px',
               background: 'rgba(255,255,255,0.05)',
@@ -239,6 +239,36 @@ export default function ResultPage() {
                 {result.description}
               </p>
             </div>
+
+            {/* Advice */}
+            {result.advice && (
+              <div style={{
+                marginBottom: '12px',
+                padding: '12px',
+                borderRadius: '12px',
+                background: 'rgba(99,102,241,0.1)',
+                border: '1px solid rgba(99,102,241,0.2)',
+              }}>
+                <p style={{ color: '#a5b4fc', fontSize: '12px', lineHeight: '1.5', margin: 0 }}>
+                  <span style={{ fontWeight: '600' }}>{t.advice}:</span> {result.advice}
+                </p>
+              </div>
+            )}
+
+            {/* Caution */}
+            {result.caution && (
+              <div style={{
+                marginBottom: '16px',
+                padding: '12px',
+                borderRadius: '12px',
+                background: 'rgba(249,115,22,0.1)',
+                border: '1px solid rgba(249,115,22,0.2)',
+              }}>
+                <p style={{ color: '#fdba74', fontSize: '12px', lineHeight: '1.5', margin: 0 }}>
+                  <span style={{ fontWeight: '600' }}>{t.watchOut}:</span> {result.caution}
+                </p>
+              </div>
+            )}
 
             {/* Tags */}
             <div style={{ textAlign: 'center', marginBottom: '20px' }}>
