@@ -8,8 +8,16 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata: Metadata = {
   title: 'Mystic Fortune',
   description: 'Discover your destiny today - Unlock the secrets of your future',
+  manifest: '/manifest.json',
+  themeColor: '#6366f1',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'black-translucent',
+    title: 'Mystic Fortune',
+  },
   icons: {
     icon: '/icon.svg',
+    apple: '/icons/icon-192x192.svg',
   },
 };
 
@@ -33,6 +41,17 @@ export default function RootLayout({
             {children}
           </main>
         </LanguageProvider>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if ('serviceWorker' in navigator) {
+                window.addEventListener('load', function() {
+                  navigator.serviceWorker.register('/sw.js');
+                });
+              }
+            `,
+          }}
+        />
       </body>
     </html>
   );

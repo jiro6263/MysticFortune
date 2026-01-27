@@ -1,8 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { Home, Share2, Sparkles, ArrowLeft } from 'lucide-react';
+import html2canvas from 'html2canvas';
 import { FortuneInput, FortuneResult, FortuneCategory, getScoreColor, getScoreBgColor } from '@/types';
 import { generateFortune } from '@/lib/fortune';
 import { useLanguage } from '@/lib/i18n/LanguageContext';
@@ -14,6 +15,8 @@ export default function ResultPage() {
   const [result, setResult] = useState<FortuneResult | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<FortuneCategory | null>(null);
   const [loading, setLoading] = useState(true);
+  const [isSharing, setIsSharing] = useState(false);
+  const shareCardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const loadFortune = async () => {
@@ -43,34 +46,52 @@ export default function ResultPage() {
   }, [locale]);
 
   const handleShare = async () => {
-    if (!result) return;
+    if (!result || !shareCardRef.current) return;
 
-    const categoryScore = selectedCategory
-      ? result.categories.find((c) => c.category === selectedCategory)
-      : null;
+    setIsSharing(true);
 
-    const score = categoryScore?.score ?? result.overallScore;
-    const gradeText = locale === 'ko' ? result.gradeLabel.kr : result.gradeLabel.en;
+    try {
+      // Capture the share card
+      const canvas = await html2canvas(shareCardRef.current, {
+        backgroundColor: '#0f0f1a',
+        scale: 2,
+        useCORS: true,
+      });
 
-    const shareText = t.shareText(score, gradeText);
+      // Convert to blob
+      const blob = await new Promise<Blob>((resolve) => {
+        canvas.toBlob((b) => resolve(b!), 'image/png', 1.0);
+      });
 
-    if (navigator.share) {
-      try {
+      const file = new File([blob], 'mystic-fortune.png', { type: 'image/png' });
+      const shareText = `${t.appName}\n${window.location.origin}`;
+
+      // Check if Web Share API with files is supported
+      if (navigator.share && navigator.canShare?.({ files: [file] })) {
         await navigator.share({
+          files: [file],
           title: t.appName,
           text: shareText,
-          url: window.location.origin,
         });
-      } catch (error) {
-        console.log('Share cancelled');
+      } else {
+        // Fallback: download the image
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'mystic-fortune.png';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+
+        // Copy link to clipboard
+        await navigator.clipboard.writeText(`${t.appName}: ${window.location.origin}`);
+        alert(locale === 'ko' ? '이미지가 다운로드되었습니다. 링크가 복사되었습니다!' : 'Image downloaded. Link copied to clipboard!');
       }
-    } else {
-      try {
-        await navigator.clipboard.writeText(shareText);
-        alert(t.copied);
-      } catch (error) {
-        console.error('Failed to copy:', error);
-      }
+    } catch (error) {
+      console.error('Share error:', error);
+    } finally {
+      setIsSharing(false);
     }
   };
 
@@ -109,6 +130,69 @@ export default function ResultPage() {
 
   return (
     <div className="min-h-screen px-4 py-6 pb-32">
+      {/* Hidden Share Card for Capture */}
+      <div className="fixed -left-[9999px] top-0">
+        <div
+          ref={shareCardRef}
+          className="w-[400px] p-8 bg-gradient-to-br from-[#1a1a2e] to-[#0f0f1a]"
+        >
+          {/* Header */}
+          <div className="text-center mb-6">
+            <div className="w-16 h-16 mx-auto mb-3 rounded-full bg-gradient-to-br from-indigo-500/30 to-purple-500/30 border border-indigo-500/40 flex items-center justify-center">
+              <Sparkles className="w-8 h-8 text-indigo-400" />
+            </div>
+            <h1 className="text-2xl font-bold text-white">{t.appName}</h1>
+          </div>
+
+          {/* Category Badge */}
+          {categoryInfo && (
+            <div className="text-center mb-4">
+              <span className="inline-block px-4 py-1 rounded-full bg-indigo-500/20 text-indigo-300 text-sm border border-indigo-500/30">
+                {categoryInfo.label}
+              </span>
+            </div>
+          )}
+
+          {/* Score */}
+          <div className="text-center mb-6">
+            <div className={`text-6xl font-bold mb-1 ${scoreColor}`}>
+              {displayScore}
+            </div>
+            <p className="text-gray-400 text-sm">{t.fortuneScore}</p>
+          </div>
+
+          {/* Grade */}
+          <div className="text-center mb-6 p-4 rounded-xl bg-white/5 border border-white/10">
+            <div className="flex items-center justify-center gap-2 mb-2">
+              <Sparkles className={`w-5 h-5 ${scoreColor}`} />
+              <span className="text-xl font-bold text-white">
+                {locale === 'ko' ? result.gradeLabel.kr : result.gradeLabel.en}
+              </span>
+            </div>
+            <p className="text-gray-300 text-sm leading-relaxed">
+              {result.description}
+            </p>
+          </div>
+
+          {/* Tags */}
+          <div className="flex flex-wrap justify-center gap-2 mb-6">
+            {result.tags.slice(0, 3).map((tag) => (
+              <span
+                key={tag}
+                className="px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-300 text-xs border border-indigo-500/20"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+
+          {/* Footer */}
+          <div className="text-center pt-4 border-t border-white/10">
+            <p className="text-gray-500 text-xs">mysticfortune.pages.dev</p>
+          </div>
+        </div>
+      </div>
+
       {/* Ad Banner Section */}
       <div className="w-full max-w-md mx-auto mb-4">
         <AdBanner slot="4970447883" />
@@ -208,10 +292,20 @@ export default function ResultPage() {
           </button>
           <button
             onClick={handleShare}
-            className="flex-1 py-4 bg-indigo-600 hover:bg-indigo-500 rounded-xl flex items-center justify-center gap-2 text-white transition-colors"
+            disabled={isSharing}
+            className="flex-1 py-4 bg-indigo-600 hover:bg-indigo-500 disabled:bg-indigo-800 disabled:cursor-wait rounded-xl flex items-center justify-center gap-2 text-white transition-colors"
           >
-            <Share2 className="w-5 h-5" />
-            {t.share}
+            {isSharing ? (
+              <>
+                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                {locale === 'ko' ? '준비 중...' : 'Preparing...'}
+              </>
+            ) : (
+              <>
+                <Share2 className="w-5 h-5" />
+                {t.share}
+              </>
+            )}
           </button>
         </div>
       </div>
