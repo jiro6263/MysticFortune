@@ -192,15 +192,15 @@ export default function ResultPage() {
               <div style={{ textAlign: 'center', marginBottom: '16px' }}>
                 <span style={{
                   display: 'inline-block',
-                  paddingTop: '8px',
-                  paddingBottom: '8px',
+                  paddingTop: '5px',
+                  paddingBottom: '9px',
                   paddingLeft: '16px',
                   paddingRight: '16px',
                   borderRadius: '9999px',
                   background: 'rgba(99,102,241,0.2)',
                   color: '#a5b4fc',
                   fontSize: '14px',
-                  lineHeight: '14px',
+                  lineHeight: '1',
                   border: '1px solid rgba(99,102,241,0.3)',
                 }}>
                   {categoryInfo.label}
@@ -281,8 +281,8 @@ export default function ResultPage() {
                   key={tag}
                   style={{
                     display: 'inline-block',
-                    paddingTop: '6px',
-                    paddingBottom: '6px',
+                    paddingTop: '4px',
+                    paddingBottom: '8px',
                     paddingLeft: '12px',
                     paddingRight: '12px',
                     marginRight: index < 2 ? '8px' : '0',
@@ -290,7 +290,7 @@ export default function ResultPage() {
                     background: 'rgba(99,102,241,0.1)',
                     color: '#a5b4fc',
                     fontSize: '12px',
-                    lineHeight: '12px',
+                    lineHeight: '1',
                     border: '1px solid rgba(99,102,241,0.2)',
                   }}
                 >
