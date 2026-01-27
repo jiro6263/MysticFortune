@@ -5,6 +5,7 @@ import { Heart, Coins, BookOpen, Users, Sparkles } from 'lucide-react';
 import { FortuneCategory } from '@/types';
 import { useLanguage } from '@/lib/i18n/LanguageContext';
 import LanguageSelector from '@/components/LanguageSelector';
+import AdBanner from '@/components/AdBanner';
 
 const categoryIcons: Record<FortuneCategory, typeof Heart> = {
   love: Heart,
@@ -42,9 +43,7 @@ export default function HomePage() {
     <div className="min-h-screen px-4 py-6 pb-24">
       {/* Ad Banner Section */}
       <div className="w-full max-w-md mx-auto mb-4">
-        <div className="h-[50px] bg-gray-800/80 rounded-lg flex items-center justify-center text-gray-500 text-xs border border-gray-700/50">
-          <span className="tracking-widest">{t.adBanner}</span>
-        </div>
+        <AdBanner slot="XXXXXXXXXX" />
       </div>
 
       {/* Language Selector */}

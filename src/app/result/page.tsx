@@ -6,6 +6,7 @@ import { Home, Share2, Sparkles, ArrowLeft } from 'lucide-react';
 import { FortuneInput, FortuneResult, FortuneCategory, getScoreColor, getScoreBgColor } from '@/types';
 import { generateFortune } from '@/lib/fortune';
 import { useLanguage } from '@/lib/i18n/LanguageContext';
+import AdBanner from '@/components/AdBanner';
 
 export default function ResultPage() {
   const router = useRouter();
@@ -110,9 +111,7 @@ export default function ResultPage() {
     <div className="min-h-screen px-4 py-6 pb-32">
       {/* Ad Banner Section */}
       <div className="w-full max-w-md mx-auto mb-4">
-        <div className="h-[50px] bg-gray-800/80 rounded-lg flex items-center justify-center text-gray-500 text-xs border border-gray-700/50">
-          <span className="tracking-widest">{t.adBanner}</span>
-        </div>
+        <AdBanner slot="XXXXXXXXXX" />
       </div>
 
       {/* Back Button */}
