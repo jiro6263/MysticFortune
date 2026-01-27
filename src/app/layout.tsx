@@ -19,6 +19,9 @@ export const metadata: Metadata = {
     icon: '/icon.svg',
     apple: '/icons/icon-192x192.svg',
   },
+  other: {
+    'google': 'notranslate',
+  },
 };
 
 export default function RootLayout({
@@ -27,7 +30,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className="notranslate" translate="no">
       <head>
         <script
           async
