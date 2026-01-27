@@ -40,7 +40,7 @@ export default function AdBanner({
     <ins
       className="adsbygoogle"
       style={{ display: 'block', minHeight: '50px' }}
-      data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"  // TODO: Publisher ID로 교체
+      data-ad-client="ca-pub-8269395390841538"
       data-ad-slot={slot}
       data-ad-format={format}
       data-full-width-responsive={responsive}

@@ -6,8 +6,7 @@ import { LanguageProvider } from '@/lib/i18n/LanguageContext';
 
 const inter = Inter({ subsets: ['latin'] });
 
-// TODO: AdSense 승인 후 본인의 Publisher ID로 교체하세요
-const ADSENSE_PUBLISHER_ID = 'ca-pub-XXXXXXXXXXXXXXXX';
+const ADSENSE_PUBLISHER_ID = 'ca-pub-8269395390841538';
 
 export const metadata: Metadata = {
   title: 'Mystic Fortune',
