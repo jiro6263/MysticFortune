@@ -158,67 +158,115 @@ export default function ResultPage() {
     <div className="min-h-screen px-4 py-6 pb-32">
       {/* Share Card for Capture */}
       {showShareCard && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80">
+        <div className="fixed inset-0 z-50 bg-black/80" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <div
             ref={shareCardRef}
-            className="w-[360px] p-6 rounded-2xl bg-gradient-to-br from-[#1a1a2e] to-[#0f0f1a] border border-white/10"
+            style={{
+              width: '360px',
+              padding: '24px',
+              borderRadius: '16px',
+              background: 'linear-gradient(to bottom right, #1a1a2e, #0f0f1a)',
+              border: '1px solid rgba(255,255,255,0.1)',
+            }}
           >
-          {/* Header */}
-          <div className="text-center mb-6">
-            <div className="w-16 h-16 mx-auto mb-3 rounded-full bg-gradient-to-br from-indigo-500/30 to-purple-500/30 border border-indigo-500/40 flex items-center justify-center">
-              <Sparkles className="w-8 h-8 text-indigo-400" />
+            {/* Header */}
+            <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+              <div style={{
+                width: '64px',
+                height: '64px',
+                margin: '0 auto 12px auto',
+                borderRadius: '50%',
+                background: 'linear-gradient(to bottom right, rgba(99,102,241,0.3), rgba(168,85,247,0.3))',
+                border: '1px solid rgba(99,102,241,0.4)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+                <Sparkles style={{ width: '32px', height: '32px', color: '#818cf8' }} />
+              </div>
+              <h1 style={{ fontSize: '24px', fontWeight: 'bold', color: 'white', margin: 0 }}>{t.appName}</h1>
             </div>
-            <h1 className="text-2xl font-bold text-white">{t.appName}</h1>
-          </div>
 
-          {/* Category Badge */}
-          {categoryInfo && (
-            <div className="text-center mb-4">
-              <span className="inline-block px-4 py-1 rounded-full bg-indigo-500/20 text-indigo-300 text-sm border border-indigo-500/30">
-                {categoryInfo.label}
-              </span>
+            {/* Category Badge */}
+            {categoryInfo && (
+              <div style={{ textAlign: 'center', marginBottom: '16px' }}>
+                <span style={{
+                  display: 'inline-block',
+                  padding: '4px 16px',
+                  borderRadius: '9999px',
+                  background: 'rgba(99,102,241,0.2)',
+                  color: '#a5b4fc',
+                  fontSize: '14px',
+                  border: '1px solid rgba(99,102,241,0.3)',
+                }}>
+                  {categoryInfo.label}
+                </span>
+              </div>
+            )}
+
+            {/* Score */}
+            <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+              <div style={{
+                fontSize: '60px',
+                fontWeight: 'bold',
+                marginBottom: '4px',
+                color: displayScore >= 80 ? '#4ade80' : displayScore >= 60 ? '#a3e635' : displayScore >= 40 ? '#facc15' : '#f87171',
+              }}>
+                {displayScore}
+              </div>
+              <p style={{ color: '#9ca3af', fontSize: '14px', margin: 0 }}>{t.fortuneScore}</p>
             </div>
-          )}
 
-          {/* Score */}
-          <div className="text-center mb-6">
-            <div className={`text-6xl font-bold mb-1 ${scoreColor}`}>
-              {displayScore}
+            {/* Grade */}
+            <div style={{
+              textAlign: 'center',
+              marginBottom: '20px',
+              padding: '16px',
+              borderRadius: '12px',
+              background: 'rgba(255,255,255,0.05)',
+              border: '1px solid rgba(255,255,255,0.1)',
+            }}>
+              <div style={{ marginBottom: '8px' }}>
+                <span style={{
+                  fontSize: '20px',
+                  fontWeight: 'bold',
+                  color: 'white',
+                }}>
+                  ✨ {locale === 'ko' ? result.gradeLabel.kr : result.gradeLabel.en}
+                </span>
+              </div>
+              <p style={{ color: '#d1d5db', fontSize: '14px', lineHeight: '1.6', margin: 0 }}>
+                {result.description}
+              </p>
             </div>
-            <p className="text-gray-400 text-sm">{t.fortuneScore}</p>
-          </div>
 
-          {/* Grade */}
-          <div className="text-center mb-6 p-4 rounded-xl bg-white/5 border border-white/10">
-            <div className="flex items-center justify-center gap-2 mb-2">
-              <Sparkles className={`w-5 h-5 ${scoreColor}`} />
-              <span className="text-xl font-bold text-white">
-                {locale === 'ko' ? result.gradeLabel.kr : result.gradeLabel.en}
-              </span>
+            {/* Tags */}
+            <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+              {result.tags.slice(0, 3).map((tag, index) => (
+                <span
+                  key={tag}
+                  style={{
+                    display: 'inline-block',
+                    padding: '4px 12px',
+                    marginRight: index < 2 ? '8px' : '0',
+                    borderRadius: '9999px',
+                    background: 'rgba(99,102,241,0.1)',
+                    color: '#a5b4fc',
+                    fontSize: '12px',
+                    border: '1px solid rgba(99,102,241,0.2)',
+                  }}
+                >
+                  {tag}
+                </span>
+              ))}
             </div>
-            <p className="text-gray-300 text-sm leading-relaxed">
-              {result.description}
-            </p>
-          </div>
 
-          {/* Tags */}
-          <div className="flex flex-wrap justify-center gap-2 mb-6">
-            {result.tags.slice(0, 3).map((tag) => (
-              <span
-                key={tag}
-                className="px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-300 text-xs border border-indigo-500/20"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-
-          {/* Footer */}
-          <div className="text-center pt-4 border-t border-white/10">
-            <p className="text-gray-500 text-xs">mysticfortune.pages.dev</p>
+            {/* Footer */}
+            <div style={{ textAlign: 'center', paddingTop: '16px', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
+              <p style={{ color: '#6b7280', fontSize: '12px', margin: 0 }}>mysticfortune.pages.dev</p>
+            </div>
           </div>
         </div>
-      </div>
       )}
 
       {/* Ad Banner Section */}
