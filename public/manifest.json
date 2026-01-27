@@ -32,6 +32,29 @@
       "type": "image/svg+xml"
     }
   ],
+  "screenshots": [
+    {
+      "src": "/screenshots/screenshot-1.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Home Screen"
+    },
+    {
+      "src": "/screenshots/screenshot-2.jpg",
+      "sizes": "1080x1920",
+      "type": "image/jpeg",
+      "form_factor": "narrow",
+      "label": "Input Screen"
+    },
+    {
+      "src": "/screenshots/screenshot-3.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Result Screen"
+    }
+  ],
   "categories": ["entertainment", "lifestyle"],
   "lang": "en",
   "dir": "ltr"
