@@ -16,6 +16,7 @@ export default function ResultPage() {
   const [selectedCategory, setSelectedCategory] = useState<FortuneCategory | null>(null);
   const [loading, setLoading] = useState(true);
   const [isSharing, setIsSharing] = useState(false);
+  const [showShareCard, setShowShareCard] = useState(false);
   const shareCardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -46,32 +47,44 @@ export default function ResultPage() {
   }, [locale]);
 
   const handleShare = async () => {
-    if (!result || !shareCardRef.current) return;
+    if (!result) return;
 
     setIsSharing(true);
+    setShowShareCard(true);
+
+    // Wait for the card to render
+    await new Promise((resolve) => setTimeout(resolve, 100));
 
     try {
+      if (!shareCardRef.current) {
+        throw new Error('Share card not found');
+      }
+
       // Capture the share card
       const canvas = await html2canvas(shareCardRef.current, {
         backgroundColor: '#0f0f1a',
         scale: 2,
         useCORS: true,
+        logging: false,
       });
 
       // Convert to blob
-      const blob = await new Promise<Blob>((resolve) => {
-        canvas.toBlob((b) => resolve(b!), 'image/png', 1.0);
+      const blob = await new Promise<Blob>((resolve, reject) => {
+        canvas.toBlob((b) => {
+          if (b) resolve(b);
+          else reject(new Error('Failed to create blob'));
+        }, 'image/png', 1.0);
       });
 
       const file = new File([blob], 'mystic-fortune.png', { type: 'image/png' });
-      const shareText = `${t.appName}\n${window.location.origin}`;
+      const shareUrl = 'https://mysticfortune.pages.dev';
 
       // Check if Web Share API with files is supported
       if (navigator.share && navigator.canShare?.({ files: [file] })) {
         await navigator.share({
           files: [file],
           title: t.appName,
-          text: shareText,
+          text: shareUrl,
         });
       } else {
         // Fallback: download the image
@@ -85,12 +98,25 @@ export default function ResultPage() {
         URL.revokeObjectURL(url);
 
         // Copy link to clipboard
-        await navigator.clipboard.writeText(`${t.appName}: ${window.location.origin}`);
+        await navigator.clipboard.writeText(shareUrl);
         alert(locale === 'ko' ? '이미지가 다운로드되었습니다. 링크가 복사되었습니다!' : 'Image downloaded. Link copied to clipboard!');
       }
     } catch (error) {
       console.error('Share error:', error);
+      // Fallback to text-only share
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: t.appName,
+            text: t.shareText(displayScore, locale === 'ko' ? result.gradeLabel.kr : result.gradeLabel.en),
+            url: 'https://mysticfortune.pages.dev',
+          });
+        } catch {
+          // User cancelled
+        }
+      }
     } finally {
+      setShowShareCard(false);
       setIsSharing(false);
     }
   };
@@ -130,12 +156,13 @@ export default function ResultPage() {
 
   return (
     <div className="min-h-screen px-4 py-6 pb-32">
-      {/* Hidden Share Card for Capture */}
-      <div className="fixed -left-[9999px] top-0">
-        <div
-          ref={shareCardRef}
-          className="w-[400px] p-8 bg-gradient-to-br from-[#1a1a2e] to-[#0f0f1a]"
-        >
+      {/* Share Card for Capture */}
+      {showShareCard && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80">
+          <div
+            ref={shareCardRef}
+            className="w-[360px] p-6 rounded-2xl bg-gradient-to-br from-[#1a1a2e] to-[#0f0f1a] border border-white/10"
+          >
           {/* Header */}
           <div className="text-center mb-6">
             <div className="w-16 h-16 mx-auto mb-3 rounded-full bg-gradient-to-br from-indigo-500/30 to-purple-500/30 border border-indigo-500/40 flex items-center justify-center">
@@ -192,6 +219,7 @@ export default function ResultPage() {
           </div>
         </div>
       </div>
+      )}
 
       {/* Ad Banner Section */}
       <div className="w-full max-w-md mx-auto mb-4">
