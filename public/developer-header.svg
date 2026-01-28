@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="4096" height="2304" viewBox="0 0 4096 2304">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e"/>
+      <stop offset="50%" style="stop-color:#16213e"/>
+      <stop offset="100%" style="stop-color:#0f0f1a"/>
+    </linearGradient>
+    <linearGradient id="iconGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366f1"/>
+      <stop offset="100%" style="stop-color:#8b5cf6"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="4096" height="2304" fill="url(#bgGradient)"/>
+
+  <!-- Stars background -->
+  <g fill="#fff">
+    <circle cx="200" cy="200" r="3" opacity="0.6"/>
+    <circle cx="400" cy="350" r="2" opacity="0.4"/>
+    <circle cx="300" cy="600" r="3" opacity="0.5"/>
+    <circle cx="150" cy="900" r="2" opacity="0.3"/>
+    <circle cx="500" cy="1100" r="3" opacity="0.5"/>
+    <circle cx="250" cy="1400" r="2" opacity="0.4"/>
+    <circle cx="100" cy="1700" r="3" opacity="0.5"/>
+    <circle cx="450" cy="1900" r="2" opacity="0.3"/>
+    <circle cx="350" cy="2100" r="3" opacity="0.4"/>
+
+    <circle cx="800" cy="150" r="2" opacity="0.5"/>
+    <circle cx="1000" cy="400" r="3" opacity="0.4"/>
+    <circle cx="900" cy="800" r="2" opacity="0.6"/>
+    <circle cx="750" cy="1200" r="3" opacity="0.3"/>
+    <circle cx="1100" cy="1500" r="2" opacity="0.5"/>
+    <circle cx="850" cy="1800" r="3" opacity="0.4"/>
+    <circle cx="1050" cy="2000" r="2" opacity="0.5"/>
+
+    <circle cx="3896" cy="200" r="3" opacity="0.6"/>
+    <circle cx="3696" cy="350" r="2" opacity="0.4"/>
+    <circle cx="3796" cy="600" r="3" opacity="0.5"/>
+    <circle cx="3946" cy="900" r="2" opacity="0.3"/>
+    <circle cx="3596" cy="1100" r="3" opacity="0.5"/>
+    <circle cx="3846" cy="1400" r="2" opacity="0.4"/>
+    <circle cx="3996" cy="1700" r="3" opacity="0.5"/>
+    <circle cx="3646" cy="1900" r="2" opacity="0.3"/>
+    <circle cx="3746" cy="2100" r="3" opacity="0.4"/>
+
+    <circle cx="3296" cy="150" r="2" opacity="0.5"/>
+    <circle cx="3096" cy="400" r="3" opacity="0.4"/>
+    <circle cx="3196" cy="800" r="2" opacity="0.6"/>
+    <circle cx="3346" cy="1200" r="3" opacity="0.3"/>
+    <circle cx="2996" cy="1500" r="2" opacity="0.5"/>
+    <circle cx="3246" cy="1800" r="3" opacity="0.4"/>
+    <circle cx="3046" cy="2000" r="2" opacity="0.5"/>
+
+    <circle cx="1500" cy="300" r="2" opacity="0.4"/>
+    <circle cx="2000" cy="200" r="3" opacity="0.5"/>
+    <circle cx="2500" cy="350" r="2" opacity="0.3"/>
+    <circle cx="1800" cy="2000" r="3" opacity="0.4"/>
+    <circle cx="2300" cy="2100" r="2" opacity="0.5"/>
+    <circle cx="2048" cy="400" r="3" opacity="0.4"/>
+  </g>
+
+  <!-- Decorative sparkles left -->
+  <g transform="translate(600, 1000)" fill="#a5b4fc" opacity="0.6" filter="url(#glow)">
+    <path d="M0 -60 L8 -8 L60 0 L8 8 L0 60 L-8 8 L-60 0 L-8 -8 Z"/>
+  </g>
+  <g transform="translate(400, 600)" fill="#c4b5fd" opacity="0.4">
+    <path d="M0 -30 L4 -4 L30 0 L4 4 L0 30 L-4 4 L-30 0 L-4 -4 Z"/>
+  </g>
+  <g transform="translate(700, 1600)" fill="#a5b4fc" opacity="0.5">
+    <path d="M0 -40 L6 -6 L40 0 L6 6 L0 40 L-6 6 L-40 0 L-6 -6 Z"/>
+  </g>
+
+  <!-- Decorative sparkles right -->
+  <g transform="translate(3496, 1000)" fill="#a5b4fc" opacity="0.6" filter="url(#glow)">
+    <path d="M0 -60 L8 -8 L60 0 L8 8 L0 60 L-8 8 L-60 0 L-8 -8 Z"/>
+  </g>
+  <g transform="translate(3696, 600)" fill="#c4b5fd" opacity="0.4">
+    <path d="M0 -30 L4 -4 L30 0 L4 4 L0 30 L-4 4 L-30 0 L-4 -4 Z"/>
+  </g>
+  <g transform="translate(3396, 1600)" fill="#a5b4fc" opacity="0.5">
+    <path d="M0 -40 L6 -6 L40 0 L6 6 L0 40 L-6 6 L-40 0 L-6 -6 Z"/>
+  </g>
+
+  <!-- App Icon -->
+  <g transform="translate(2048, 900)">
+    <rect x="-150" y="-150" width="300" height="300" rx="65" fill="url(#iconGradient)" filter="url(#glow)"/>
+    <g transform="translate(-75, -75) scale(7.5)" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path d="m10 2.5-1.594 4.844a1.667 1.667 0 0 1-1.062 1.062L2.5 10l4.844 1.594a1.667 1.667 0 0 1 1.062 1.062L10 17.5l1.594-4.844a1.667 1.667 0 0 1 1.062-1.062L17.5 10l-4.844-1.594a1.667 1.667 0 0 1-1.062-1.062L10 2.5Z"/>
+      <path d="M4.167 2.5v3.333"/>
+      <path d="M15.833 14.167V17.5"/>
+      <path d="M2.5 4.167h3.333"/>
+      <path d="M14.167 15.833H17.5"/>
+    </g>
+  </g>
+
+  <!-- App Name -->
+  <text x="2048" y="1350" text-anchor="middle" font-family="Arial, sans-serif" font-size="180" font-weight="bold" fill="white" filter="url(#glow)">
+    Mystic Fortune
+  </text>
+
+  <!-- Tagline -->
+  <text x="2048" y="1500" text-anchor="middle" font-family="Arial, sans-serif" font-size="80" fill="#a5b4fc">
+    Discover Your Destiny
+  </text>
+
+  <!-- Category icons -->
+  <g transform="translate(2048, 1750)" fill="#818cf8" opacity="0.8">
+    <!-- Heart -->
+    <g transform="translate(-450, 0) scale(3)">
+      <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" transform="translate(-12, -12)"/>
+    </g>
+    <!-- Coin -->
+    <g transform="translate(-150, 0) scale(3)">
+      <circle cx="0" cy="0" r="10" stroke="#818cf8" stroke-width="2" fill="none"/>
+      <text x="0" y="5" text-anchor="middle" font-size="14" fill="#818cf8">$</text>
+    </g>
+    <!-- Book -->
+    <g transform="translate(150, 0) scale(3)">
+      <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 19.5A2.5 2.5 0 0 0 6.5 22H20V4H6.5A2.5 2.5 0 0 0 4 6.5v13z" transform="translate(-12, -12)" stroke="#818cf8" stroke-width="2" fill="none"/>
+    </g>
+    <!-- Users -->
+    <g transform="translate(450, 0) scale(3)">
+      <circle cx="-5" cy="-5" r="5" stroke="#818cf8" stroke-width="1.5" fill="none"/>
+      <circle cx="8" cy="-5" r="5" stroke="#818cf8" stroke-width="1.5" fill="none"/>
+      <path d="M-14 10 Q-5 0 4 10" stroke="#818cf8" stroke-width="1.5" fill="none"/>
+      <path d="M0 10 Q8 0 17 10" stroke="#818cf8" stroke-width="1.5" fill="none"/>
+    </g>
+  </g>
+</svg>
